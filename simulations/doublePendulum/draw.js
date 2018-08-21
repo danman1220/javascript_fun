@@ -109,11 +109,17 @@ function draw() {
 function calculatePos() {	
 	yf = solver.rk4(0,[a1,a2,a1_v,a2_v], diffeq, stepscl);
 	
-	a1 = yf[0];
-	a2 = yf[1];
-	a1_v = yf[2];
-	a2_v = yf[3];
-	
+	if(g != 0) {
+
+		a1 = yf[0];
+		a2 = yf[1];
+		a1_v = yf[2];
+		a2_v = yf[3];
+	} else {
+		a1 += a1_v*stepscl;
+		a2 += a2_v*stepscl;
+	}
+
 	//calculate x and y values
 
 	x1 = l1*Math.sin(a1);
