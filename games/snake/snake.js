@@ -66,8 +66,9 @@ function Snake(min_x, max_x, min_y, max_y) {
 	this.consume = function(food) {
 		if(this.x === food.x && this.y === food.y) {
 			this.score ++;
-			food.update();
+			return true;
 		}
+		return false;
 	}
 
 	this.check_death = function(){
@@ -157,19 +158,9 @@ function Snake(min_x, max_x, min_y, max_y) {
 
 
 
-function Food(min_x, max_x, min_y, max_y) {
-	this.max_x = max_x;
-	this.max_y = max_y;
-	this.min_x = min_x;
-	this.min_y = min_y;
-
-	this.x = Math.floor(Math.random()*(max_x-min_x)+min_x);
-	this.y = Math.floor(Math.random()*(max_y-min_y)+min_y);
-
-	this.update = function() {
-		this.x = Math.floor(Math.random()*(max_x-min_x)+min_x);
-		this.y = Math.floor(Math.random()*(max_y-min_y)+min_y);
-	}
+function Food(x,y) {
+	this.x = x;
+	this.y = y
 
 	this.show = function(ctx, scale) {
 		ctx.beginPath();

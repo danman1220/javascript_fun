@@ -5,6 +5,12 @@ var reset_button;
 var height;
 var width;
 var scale = 20; //px per unit
+
+var max_x; 
+var min_x;
+var max_y;
+var min_y;
+
 var frames_per_second = 3;
 
 var current_frame;
@@ -26,6 +32,12 @@ function setup() {
 	height = canvas.height;
 	width = canvas.width;
 
+	max_x = width/(2*scale);
+	min_x = -width/(2*scale);
+	max_y = height/(2*scale);
+	min_y = -height/(2*scale);
+
+
 	ctx.setTransform(1,0,0,1,0,0);
 	ctx.clearRect(0,0,width,height);
 
@@ -37,8 +49,14 @@ function setup() {
 	ctx.fill();
 	ctx.closePath();
 
-	snake = new Snake(-width/(2*scale), width/(2*scale), -height/(2*scale), height/(2*scale));
-	food = new Food(-width/(2*scale), width/(2*scale), -height/(2*scale), height/(2*scale));
+	snake = new Snake(min_x, max_x, min_y, max_y);
+
+	do {
+		food_x = Math.floor(Math.random()*(max_x-min_x)+min_x);
+		food_y = Math.floor(Math.random()*(max_y-min_y)+min_y);
+	} while(food_x != snake.x && food_y != snake.y);
+
+	food = new Food(food_x, food_y);
 
 	snake.show(ctx, scale);
 	food.show(ctx, scale);
@@ -50,7 +68,14 @@ function draw() {
 
 	setTimeout(function() {
 		snake.update();
-		snake.consume(food);
+		if(snake.consume(food)){
+			do {
+				food_x = Math.floor(Math.random()*(max_x-min_x)+min_x);
+				food_y = Math.floor(Math.random()*(max_y-min_y)+min_y);
+			} while(food_x != snake.x && food_y != snake.y);
+
+			food = new Food(food_x, food_y);
+		}
 
 		ctx.clearRect(-width,-height,width*2,height*2);
 		
