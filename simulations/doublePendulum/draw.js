@@ -109,6 +109,7 @@ function draw() {
 function calculatePos() {	
 	yf = solver.rk4(0,[a1,a2,a1_v,a2_v], diffeq, stepscl);
 	
+	//hack to turn off diffeq solver TODO remove
 	if(g != 0) {
 
 		a1 = yf[0];

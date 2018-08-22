@@ -1,5 +1,7 @@
 var canvas;
 var ctx;
+var score_elem;
+var reset_button;
 var height;
 var width;
 var scale = 20; //px per unit
@@ -14,6 +16,10 @@ function setup() {
 	if(current_frame){
 		window.cancelAnimationFrame(current_frame);
 	}
+
+	reset_button.hidden = true;
+
+	score_elem = document.getElementById("score");
 
 	canvas = document.getElementById("canvas1");
 	ctx = canvas.getContext("2d");
@@ -57,8 +63,19 @@ function draw() {
 		snake.show(ctx, scale);
 		food.show(ctx, scale);
 
-		current_frame = window.requestAnimationFrame(draw);
+		score_elem.textContent = "Score: " + snake.score;
+
+		if(snake.check_death()){
+			game_over();
+		} else {
+			current_frame = window.requestAnimationFrame(draw);
+		}	
 	}, 1000/frames_per_second);	
+}
+
+function game_over() {
+	//TODO add some game over screen
+	reset_button.hidden = false;
 }
 
 function listen_for_direction(e) {
@@ -82,6 +99,8 @@ function listen_for_direction(e) {
 }
 
 window.onload = function() {
+	reset_button = document.getElementById("reset");
+	reset_button.onclick = setup;
 	setup();
 }
 
