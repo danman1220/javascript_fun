@@ -79,7 +79,7 @@ function Snake(min_x, max_x, min_y, max_y) {
 	this.show = function(ctx, scale) {
 		ctx.beginPath();
 
-		//draw a head :) TODO get an actual texture
+		//draw a head :) TODO abstract to draw_with_orientation method
 		if(this.xspeed === 1){
 			// ctx.fillStyle = "#FFFFFF";
 			// ctx.rect(this.x*scale, this.y*scale, scale-2, scale);
