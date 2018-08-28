@@ -1,7 +1,5 @@
-function Cell(x,y) {
+function Cell() {
 	//cell logic here
-	this.x = x;
-	this.y = y;
 	this.dead = true;
 	this.dead_next = true;
 	this.neighbors = [];
@@ -69,10 +67,7 @@ function CellFactory(max_x, max_y) {
 		this.all_cells[i] = new Array(max_y+1);
 
 		for (var j = 0; j < this.all_cells[i].length; j++) {
-			this.all_cells[i][j] = new Cell(i,j);
-				if(Math.random() > 0.5){
-					this.all_cells[i][j].create();
-				}
+			this.all_cells[i][j] = new Cell();
 		}
 	}
 
@@ -128,6 +123,22 @@ function CellFactory(max_x, max_y) {
 
 	this.getCurrentState = function() {
 		return this.all_cells.slice(); //prevents all_cells from mutating, just returns current state
+	}
+
+	this.initializeRandom = function() {
+		for (var x = 0; x < this.all_cells.length; x++) {
+			for (var y = 0; y < this.all_cells[x].length; y++) {
+				if(Math.random() > 0.5) {
+					this.all_cells[x][y].create();
+				}
+			}
+		}
+	}
+
+	this.initializeLine = function(x) {
+		for (var y = 0; y < this.all_cells[x].length; y++) {
+			this.all_cells[x][y].create();
+		}
 	}
 
 
