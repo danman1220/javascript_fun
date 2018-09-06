@@ -1,9 +1,11 @@
 var current_frame;
 var canvas;
 var ctx;
-var width, height; //px per cell
-var scale = 10;
-var frames_per_second=60;
+var width, height;
+var scale = 10; //px per cell
+var frames_per_second=30;
+
+var is_clicking = false;
 
 var max_x;
 var max_y;
@@ -16,6 +18,7 @@ var cell_factory;
 var do_animate;
 
 function setup(instantiate_fn) {
+	//safeguard that prevents a frame from drawing when setup is being run... may be outdated though
 	if(current_frame) {
 		window.cancelAnimationFrame(current_frame);
 	}
@@ -38,7 +41,8 @@ function setup(instantiate_fn) {
 	} else {
 		cell_factory = new CellFactory(max_x, max_y);
 		// cell_factory.initializeRandom();
-		cell_factory.initializeLine(width/(2*scale));
+		cell_factory.initializeLine(width/(2*scale)-3);
+		cell_factory.initializeLine(width/(2*scale)+3);
 	}
 
 	window.requestAnimationFrame(drawFrame);
@@ -53,6 +57,7 @@ function draw() {
 	if(!do_animate) {return;};
 
 	setTimeout(function() {
+		cell_factory.update();
 		drawFrame();
 		current_frame = window.requestAnimationFrame(draw);
 	}, 1000/frames_per_second);
@@ -61,7 +66,6 @@ function draw() {
 
 function drawFrame() {
 
-		cell_factory.update();
 		var current_state = cell_factory.getCurrentState();
 
 		ctx.clearRect(0, 0, width, height);
@@ -115,8 +119,21 @@ function randomize() {
 	});
 }
 
+function click_handler(e) {
+	var xoff = canvas.offsetLeft;
+	var yoff = canvas.offsetTop;
+
+	var relx = Math.floor((e.x - xoff)/scale);
+	var rely = Math.floor((e.y - yoff)/scale);
+
+	cell_factory.createCell(relx, rely);
+	drawFrame();
+}
+
+
 //pre-setup function
 window.onload = function() {
+	//button inits
 	document.getElementById('pause').onclick = function() {
 		pause();
 	}
@@ -129,5 +146,21 @@ window.onload = function() {
 	document.getElementById('randomize').onclick = function() {
 		randomize();
 	}
+
+	//canvas inits
+	document.getElementById('canvas1').onmousedown = function(e) {
+		click_handler(e);
+		is_clicking = true;
+	}
+	document.getElementById('canvas1').onmousemove = function(e) {
+		if(is_clicking) {
+			click_handler(e);
+		}
+	}
+	document.getElementById('canvas1').onmouseup = function(e) {
+		is_clicking = false;
+	}	
+
+	//start it up
 	setup();
 }

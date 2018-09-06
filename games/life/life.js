@@ -32,7 +32,7 @@ function Cell() {
 
 		} else {
 			if(live_neighbors === 3) {
-				this.reviveNext();
+				this.reviveNext(); //children
 			} else {
 				this.killNext();
 			}
@@ -78,23 +78,23 @@ function CellFactory(max_x, max_y) {
 				if(i>0) {
 					this.all_cells[i][j].addNeighbor(this.all_cells[i-1][j+1]);
 				}
-				this.all_cells[i][j].addNeighbor(this.all_cells[i  ][j+1]);
+				this.all_cells[i][j].addNeighbor(this.all_cells[i][j+1]);
 				if(i<max_x) {
 					this.all_cells[i][j].addNeighbor(this.all_cells[i+1][j+1]);
 				}
 			}
 
 			if(i>0){
-				this.all_cells[i][j].addNeighbor(this.all_cells[i-1][j  ]);
+				this.all_cells[i][j].addNeighbor(this.all_cells[i-1][j]);
 			}
 			if(i<max_x){
-				this.all_cells[i][j].addNeighbor(this.all_cells[i+1][j  ]);
+				this.all_cells[i][j].addNeighbor(this.all_cells[i+1][j]);
 			}
 			if(j>0){
 				if(i>0){
 					this.all_cells[i][j].addNeighbor(this.all_cells[i-1][j-1]);
 				}
-				this.all_cells[i][j].addNeighbor(this.all_cells[i  ][j-1]);
+				this.all_cells[i][j].addNeighbor(this.all_cells[i][j-1]);
 				if(i<max_x){
 					this.all_cells[i][j].addNeighbor(this.all_cells[i+1][j-1]);
 				}
@@ -119,6 +119,10 @@ function CellFactory(max_x, max_y) {
 
 	this.reviveCell = function(x,y) {
 		this.all_cells[x][y].reviveNext();
+	}
+
+	this.createCell = function(x,y) {
+		this.all_cells[x][y].create();
 	}
 
 	this.getCurrentState = function() {
