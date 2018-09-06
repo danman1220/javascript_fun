@@ -146,6 +146,11 @@ window.onload = function() {
 	document.getElementById('randomize').onclick = function() {
 		randomize();
 	}
+	document.getElementById('clear').onclick = function() {
+		setup(function() {
+			cell_factory = new CellFactory(max_x, max_y);
+		})
+	}
 
 	//canvas inits
 	document.getElementById('canvas1').onmousedown = function(e) {
