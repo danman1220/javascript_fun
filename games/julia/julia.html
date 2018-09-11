@@ -1,6 +1,7 @@
 <head>
 	<script type="text/javascript" src="julia.js"></script>
 	<script type="text/javascript" src="draw.js"></script>
+	<link rel="stylesheet" type="text/css" href="julia.css">
 
 </head>
 
@@ -14,4 +15,13 @@
 	Min y: <input type="number" id="miny" value="-1">
 	Max y: <input type="number" id="maxy" value="1"><br>
 
+	<p class="text-explain">
+		Think of this as the complex plane, and consider the function f(z) = z^2 + c.
+		If we pick a value for c, start at zero, and keep plugging in the result to f over and over again,
+		which values of c will trap points, and which will cause points to escape? Any point that is black
+		got trapped (for example, with c = 0 we iterate f(z) = z^2 at zero over and over again, which stays at zero, so c=0 is 'trapped'),
+		and the other colors show how long it took the point to escape (how many times we had to iterate to make it escape).
+
+		Try clicking and dragging a rectangle to zoom in!
+	</p>
 </body>
