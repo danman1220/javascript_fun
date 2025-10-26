@@ -16,7 +16,7 @@ class pendulumSimulation {
         this.STEPS_PER_FRAME = 500;
 
         this.stepscl = 1/(60*this.STEPS_PER_FRAME); //seconds per step (converts derivatives wrt seconds to frames)
-        this.px_per_m = 35;	//default 100
+        this.px_per_m = 60;	//default 100
         this.x1;
         this.y1;
 
