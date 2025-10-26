@@ -1,0 +1,56 @@
+<head>
+
+<script src="doublePendulum.js"></script>
+<script src="solver.js"></script>
+<script src="draw.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<h1>Double Pendulum Simulations</h1>
+    <div class="grid-container">
+        <canvas class="grid-item" id="canvas1"></canvas>
+        <canvas class="grid-item" id="canvas2"></canvas>
+        <canvas class="grid-item" id="canvas3"></canvas>
+        <canvas class="grid-item" id="canvas4"></canvas>
+        <canvas class="grid-item" id="canvas5"></canvas>
+        <canvas class="grid-item" id="canvas6"></canvas>
+        <canvas class="grid-item" id="canvas7"></canvas>
+        <canvas class="grid-item" id="canvas8"></canvas>
+        <canvas class="grid-item" id="canvas9"></canvas>
+    </div>
+    <div>
+	<br>
+	Gravity (0g skips diffeq solver): <input type="number" id="g" value="9.8">
+	<br>
+	<table id="inputs">
+		<tr>
+			<th>Mass 1 Attributes</th>
+			<th>Mass 2 Attributes</th>
+		</tr>
+		<tr>
+			<td>Mass: <input type="number" id="m1" value="20"></td>
+			<td>Mass: <input type="number" id="m2" value="20"></td>
+		</tr>
+		<tr>
+			<td>Rod Length: <input type="number" id="l1" value="1"></td>
+			<td>Rod Length: <input type="number" id="l2" value="1"></td>
+		</tr>
+		<tr>
+			<td>Initial Angle: <input type="number" id="a1" value="2"></td>
+			<td>Initial Angle: <input type="number" id="a2" value="2"></td>
+		</tr>
+		<tr>
+			<td>Initial Angular Velocity: <input type="number" id="a1_v" value="0.1"></td>
+			<td>Initial Anglular Velocity: <input type="number" id="a2_v" value="0.1"></td>
+		</tr>
+        <tr>
+			<td>Initial Angle Offset: <input type="number" id="da1" value="0.05"></td>
+			<td>Initial Angle Offset: <input type="number" id="da2" value="0.05"></td>
+        </tr>
+	</table>
+	<input type="button" id="reset" value="Reset Simulation">
+	<input type="button" id="play" value="Play Simulation">
+	<input type="button" id="pause" value="Pause Simulation">
+    </div>
+</body>
